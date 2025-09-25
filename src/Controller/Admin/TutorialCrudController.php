@@ -3,19 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Tutorial;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use App\Entity\Tutoriel;
-use App\Entity\User;
 use App\Enum\TutorialStatus;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 
 class TutorialCrudController extends AbstractCrudController
@@ -98,6 +96,17 @@ class TutorialCrudController extends AbstractCrudController
                 ->onlyWhenUpdating()
                 ->setColumns(6),
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        // Modifier l'action NEW existante au lieu d'en créer une nouvelle
+        return $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+                return $action
+                    ->setLabel('Ajouter Tutoriel')  // Texte personnalisé
+                    ->setIcon('fa fa-plus');        // Icône optionnelle
+            });
     }
 }
 
