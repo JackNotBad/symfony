@@ -7,7 +7,13 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Outils pratiques</h1>
-                <p class="lead text-body-secondary">Bonjour DevBen5</p>
+                {% if app.user and app.user.email == "rayn.stenger@gmail.com" %}
+                    <p class="text-body-secondary">Bonjour DevBen5</p>
+                {% elseif app.user and app.user.email %}
+        			<p class="text-body-secondary">Bonjour {{ app.user.email }}</p>
+                {% else %}
+                    <p class="text-body-secondary">Mais que fais-tu ici ?</p>
+    			{% endif %}
                 <p>
                     <a href="#" class="btn btn-primary my-2">Lien rapide vers ?</a>
                     <a href="#" class="btn btn-secondary my-2">Lien rapide vers ? 2</a>
